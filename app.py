@@ -1,6 +1,8 @@
 from flask import Flask
 from ciscosparkapi import CiscoSparkAPI
 import time
+app = Flask(__name__)
+
 
 while True:
 
@@ -15,10 +17,10 @@ while True:
     information = api.people.get(personId="{0}".format(conversations.creatorId))
     persons_id = information.orgId
     if last_message.text == "help":
-        api.messages.create(toPersonId="{0}".format(conversations.creatorId), text="The commands are as follows: Hello, ")
+        api.messages.create(toPersonId="{0}".format(conversations.creatorId), text="The commands are as follows: Hello,What is my IDS ")
     if last_message.text == "hello" or last_message.text == "Hello" or last_message.text == "Hi":
         api.messages.create(toPersonId="{0}".format(conversations.creatorId), text="Hello, what can I help you with(Type help for a list of comands)")
-    if last_message.text == "What is my ID":
+    if last_message.text == "What is my ID"or last_message.text == "What is my Id" or last_message.text == "What is my id":
         api.messages.create(toPersonId="{0}".format(conversations.creatorId), text="Your id is:")
         api.messages.create(toPersonId="{0}".format(conversations.creatorId), text="{0}".format(persons_id))
     if last_message.text == "Create room":
@@ -31,13 +33,10 @@ while True:
             last_message = message[0]
             n=last_message.text
             print(n)
-            time.sleep(.1)
+            time.sleep(500000000)
         print(n)
         api.messages.create(toPersonId="{0}".format(conversations.creatorId,text="{}hjhkjf"))
     time.sleep(1)
-
-
-app = Flask(__name__)
 
 
 @app.route("/")
